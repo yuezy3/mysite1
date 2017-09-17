@@ -1,0 +1,20 @@
+#editorcontainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+.sideoption{
+  flex-grow:1;
+}
+.maineditor{
+  flex-grow:16;
+  position: relative;
+}
+#editor {
+    position: absolute;
+    min-height: 500px;
+    /*min-width: 100px; do not need because flex is row direciton*/
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}

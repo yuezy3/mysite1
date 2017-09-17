@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello Bulma!</title>
+    <link rel="stylesheet" href="css/editor.css" type="text/css" charset="utf-8"></link>
+  </head>
+
+  <body>
+    <div id="editorcontainer">
+      <section class="sideoption">
+        <div id="setoption">
+          <select class="mode" >
+            <option>type 1</option>
+            <option>type 2</option>
+            <option>type 3</option>
+          </select>
+          <select class="theme">
+            <option>theme 1</option>
+            <option>theme 1</option>
+          </select>
+          <select class="fontsize">
+            <option value="12">12px</option>
+            <option value="14">14px</option>
+            <option value="16">16px</option>
+            <option value="20">20px</option>
+            <option value="24">24px</option>
+            <option value="26">28px</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="maineditor">
+        <div id="editor">function foo(items) {
+          var x = "All this is syntax highlighted";
+          return x;}
+        </div>
+      </section>
+      
+      <script src="lib/ace/ace.js" type="text/javascript" charset="utf-8">
+      // use src-min-nocofilict, that's ace.require instead require // package 02.07.17
+      </script>
+      <script src="js/editor.js" type="text/javascript" charset="utf-8"></script>
+  </div>
+  </body>
+</html>
