@@ -1,10 +1,11 @@
+// The library needed: lib/ace/ace.js for ace
+//                     lib/ramda/ramda.js for curry
 
-let modeElement = document.getElementsByClassName('mode')[0];
+var modeElement = document.getElementsByClassName('mode')[0];
 
-let themeElement = document.getElementsByClassName('theme')[0];
+var themeElement = document.getElementsByClassName('theme')[0];
 
-let fontsizeElement = document.getElementsByClassName('fontsize')[0];
-
+var fontsizeElement = document.getElementsByClassName('fontsize')[0];
 
 modeElement.addEventListener('change', modeChange);
 themeElement.addEventListener('change', themeChange);
@@ -15,15 +16,15 @@ editor.setTheme("ace/theme/monokai");
 editor.getSession().setMode("ace/mode/javascript");
 
 function modeChange(e){
-  let mode = e.target.options[e.target.selectedIndex].value;
+  var mode = e.target.options[e.target.selectedIndex].value;
   editor.getSession().setmode(mode);
 }
 function themeChange(e){
-  let theme = e.target.options[e.target.selectedIndex].value;
+  var theme = e.target.options[e.target.selectedIndex].value;
   editor.setTheme(theme); // arg are string
 }
 function fontsizeChange(e){
-  let fontsize = e.target.options[e.target.selectedIndex].value;
+  var fontsize = e.target.options[e.target.selectedIndex].value;
   editor.setFontSize(Number(fontsize));
 }
 
@@ -225,5 +226,18 @@ var nameOverrides = {
     FTL: "FreeMarker"
 };
 
+function addnNodes(nodify, items, parent){
+  items.map(nodify).forEach(function (i) {parent.appendChild(i);});
+  return parent;
+}
 
+function nodify(tag,attrObj,text){
+  var el = document.createElement(tag);
+  Object.keys(attrObj).forEach(
+    function (i) {el.setAttribute(i,attrObj[i]);});
+  if (text){
+    text = String(text);
+    el.appendChild(document.createTextNode(text));
+  }
+}
 // =======   ====End of Insert theme options and mode options ==================
