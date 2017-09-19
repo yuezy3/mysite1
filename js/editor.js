@@ -246,7 +246,7 @@ function nodify(tag,attrObj,text){
 function choose(catagory, themeDataItem){
   return themeDataItem[2] == catagory;
 }
-//var nodify = R.curry(nodify);
+var nodify = R.curry(nodify);
 var choose = R.curry(choose);
 var tree = { 'light' : R.filter(choose('light'))(themeData),
              'dark'  : R.filter(choose('dark'))(themeData) };
