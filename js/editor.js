@@ -1,6 +1,6 @@
 // The library needed: lib/ace/ace.js for ace
 //                     lib/ramda/ramda.js for curry
-
+//const R = require('ramda'); 
 var modeElement = document.getElementsByClassName('mode')[0];
 
 var themeElement = document.getElementsByClassName('theme')[0];
@@ -21,6 +21,7 @@ function modeChange(e){
 }
 function themeChange(e){
   var theme = e.target.options[e.target.selectedIndex].value;
+  theme = "ace/theme/" + theme;
   editor.setTheme(theme); // arg are string
 }
 function fontsizeChange(e){
@@ -226,8 +227,8 @@ var nameOverrides = {
     FTL: "FreeMarker"
 };
 
-function addnNodes(nodify, items, parent){
-  items.map(nodify).forEach(function (i) {parent.appendChild(i);});
+function addNodes(items, parent){
+  items.forEach(function (i) {parent.appendChild(i);});
   return parent;
 }
 
@@ -239,5 +240,29 @@ function nodify(tag,attrObj,text){
     text = String(text);
     el.appendChild(document.createTextNode(text));
   }
+  return el;
 }
-// =======   ====End of Insert theme options and mode options ==================
+
+function choose(catagory, themeDataItem){
+  return themeDataItem[2] == catagory;
+}
+//var nodify = R.curry(nodify);
+var choose = R.curry(choose);
+var tree = { 'light' : R.filter(choose('light'))(themeData),
+             'dark'  : R.filter(choose('dark'))(themeData) };
+var nodifyOption = function(text, value){
+  return nodify('option',{'value':value},text);
+};
+var nodifyOptionAdapt=function(array){return nodifyOption.apply(this,array);};
+var nodifyOptgroup = function(label){
+  return nodify('optgroup',{'label':label},'');
+};
+var groupNodify = R.curry(function (tree,key){
+  return addNodes(R.map(nodifyOptionAdapt,tree[key]), 
+                  nodifyOptgroup(key));
+});
+
+var themeNodes = Object.keys(tree).map(groupNodify(tree));
+
+themeNodes.forEach(function(node){themeElement.appendChild(node);});
+// =======   ====End of Insert theme options and mode options =================
